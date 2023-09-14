@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: grpc-client
+  namespace: grpc-istio
+  labels:
+    name: grpc-client
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: grpc-client
+  template:
+    metadata:
+      labels:
+        app: grpc-client
+    spec:
+      containers:
+        - name: grpc-client
+          image: grpc-client:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: APP_PORT
+              value: "8080"
+            - name: GRPC_SERVER_ADDRESS
+              value: "grpc-server-service:9090"
+          ports:
+            - containerPort: 8080

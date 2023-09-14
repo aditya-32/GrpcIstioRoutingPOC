@@ -1,0 +1,15 @@
+<settings>
+    <activeProfiles>
+        <activeProfile>
+            apple-silicon
+        </activeProfile>
+    </activeProfiles>
+    <profiles>
+        <profile>
+            <id>apple-silicon</id>
+            <properties>
+                <os.detected.classifier>osx-x86_64</os.detected.classifier>
+            </properties>
+        </profile>
+    </profiles>
+</settings>

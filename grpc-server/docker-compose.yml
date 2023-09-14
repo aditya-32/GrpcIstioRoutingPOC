@@ -1,0 +1,11 @@
+services:
+  grpc-server:
+    image: grpc-server:latest
+    environment:
+      SERVER: "SERVER_1"
+    ports:
+      - "9090:9090"
+    networks:
+      - grpc-net
+networks:
+  grpc-net:
