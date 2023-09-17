@@ -2,12 +2,14 @@ package org.example;
 
 import com.example.grpcproto.GrpcIstioRoutingServerGrpc;
 import com.example.grpcproto.GrpcRequest;
-import io.grpc.ManagedChannel;
-import io.grpc.ManagedChannelBuilder;
+import io.grpc.*;
 import lombok.AccessLevel;
+import lombok.Generated;
 import lombok.RequiredArgsConstructor;
 
 import java.util.concurrent.TimeUnit;
+
+import static io.grpc.Metadata.ASCII_STRING_MARSHALLER;
 
 public class GrpcClientHandler {
     private static final AppConfig config = AppConfigReader.getAppConfig();
@@ -31,9 +33,10 @@ public class GrpcClientHandler {
         return new GrpcClientHandler(managedChannel);
     }
 
-    public String getServerSubset() {
+    public String getServerSubset(String server) {
         var requestBuilder = GrpcRequest.newBuilder().setClient("aditya-grpc-client");
-        var response = grpcRoutingServerStub.getServerSubset(requestBuilder.build());
+        var interceptor = new GrpcInterceptor(server);
+        var response = grpcRoutingServerStub.withInterceptors(interceptor).getServerSubset(requestBuilder.build());
         return response.getServerSubset();
     }
 
@@ -60,6 +63,25 @@ public class GrpcClientHandler {
                 throw new RuntimeException(exception);
             }
             System.err.printf("Channel %s shutDown", name);
+        }
+    }
+
+    public static class GrpcInterceptor implements ClientInterceptor {
+        private final String serverName;
+
+        public GrpcInterceptor(String serverName) {
+            this.serverName = serverName;
+        }
+
+        @Override
+        public <ReqT, RespT> ClientCall<ReqT, RespT> interceptCall(MethodDescriptor<ReqT, RespT> methodDescriptor, CallOptions callOptions, Channel channel) {
+            return new ForwardingClientCall.SimpleForwardingClientCall<>(channel.newCall(methodDescriptor, callOptions)){
+                @Override
+                public void start(Listener<RespT> responseListener, Metadata headers) {
+                    headers.put(Metadata.Key.of("SERVER", ASCII_STRING_MARSHALLER), serverName);
+                    super.start(responseListener, headers);
+                }
+            };
         }
     }
 }

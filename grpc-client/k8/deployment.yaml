@@ -14,6 +14,10 @@ spec:
     metadata:
       labels:
         app: grpc-client
+      annotations:
+        sidecar.istio.io/inject: 'true'
+        proxy.istio.io/config: 'holdApplicationUntilProxyStarts: true'
+        inject.istio.io/templates: 'grpc-agent'
     spec:
       containers:
         - name: grpc-client

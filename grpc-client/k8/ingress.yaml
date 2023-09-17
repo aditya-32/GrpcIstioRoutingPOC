@@ -1,7 +1,7 @@
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: ingress-grpc-client
+  name: ingress-grpcclient
   namespace: grpc-istio
 spec:
   defaultBackend:

@@ -19,7 +19,9 @@ public class ServerSubsetTestServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException {
-        var data = grpcClientHandler.getServerSubset();
+        var server = req.getHeader("server");
+        var data = grpcClientHandler.getServerSubset(server);
+        System.out.println("server name :"+ server);
         try (var writer =new BufferedWriter(resp.getWriter())) {
             gson.toJson(data, writer);
             writer.flush();

@@ -1,5 +1,8 @@
 .EXPORT_ALL_VARIABLES:
 
+package:
+	mvn clean package
+
 docker-build:
 	docker build --rm -f Dockerfile -t grpc-client:latest .
 docker-run:

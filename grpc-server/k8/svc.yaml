@@ -4,7 +4,7 @@ metadata:
   name: grpc-server-service
   namespace: grpc-istio
 spec:
-  clusterIP: None
+  type: ClusterIP
   ports:
     - protocol: TCP
       port: 9090
@@ -12,3 +12,4 @@ spec:
       targetPort: 9090
   selector:
     app: grpc-server
+#  clusterIP: None
