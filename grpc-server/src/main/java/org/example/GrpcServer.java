@@ -16,6 +16,7 @@ public class GrpcServer {
         Server server = ServerBuilder.forPort(config.grpcPort())
                 .addService(new GrpcServerCustomImpl())
                 .addService(healthServiceManager.getHealthService())
+                .intercept(new ServerInterceptor())
                 .build();
         server.start();
         Runtime.getRuntime().addShutdownHook(new Thread(() -> {

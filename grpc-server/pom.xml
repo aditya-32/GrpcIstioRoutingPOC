@@ -13,8 +13,8 @@
         <maven.compiler.source>17</maven.compiler.source>
         <maven.compiler.target>17</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <grpc.version>1.50.2</grpc.version>
-        <aeonbit.version>1.0.8</aeonbit.version>
+        <grpc.version>1.58.0</grpc.version>
+        <aeonbit.version>1.0.12</aeonbit.version>
     </properties>
 
     <build>
@@ -30,10 +30,19 @@
                     </execution>
                 </executions>
                 <configuration>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
                     <shadedArtifactAttached>true</shadedArtifactAttached>
                     <transformers>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer">
-
                         </transformer>
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                             <mainClass>org.example.GrpcServer</mainClass>
@@ -72,6 +81,11 @@
         <dependency>
             <groupId>io.grpc</groupId>
             <artifactId>grpc-services</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-xds</artifactId>
+            <scope>runtime</scope>
         </dependency>
         <dependency>
             <groupId>org.aeonbits.owner</groupId>

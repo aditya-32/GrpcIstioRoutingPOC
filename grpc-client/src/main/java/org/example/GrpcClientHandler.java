@@ -27,6 +27,7 @@ public class GrpcClientHandler {
         var managedChannel = ManagedChannelBuilder.forTarget(target)
                 .usePlaintext()
                 .directExecutor()
+                .disableRetry()
                 .defaultLoadBalancingPolicy(config.grpcLoadBalancingPolicy())
                 .build();
         GrpcClientHandler.GrpcChannelShutdownHook.register("ServerSubsetChannel", managedChannel);

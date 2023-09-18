@@ -5,7 +5,7 @@ metadata:
   name: grpc-server-destination
   namespace: grpc-istio
 spec:
-  host: grpc-server-service
+  host: grpc-server-service.grpc-istio.svc.cluster.local
   subsets:
     - name: server-1
       labels:
@@ -22,7 +22,7 @@ metadata:
   namespace: grpc-istio
 spec:
   hosts:
-    - grpc-server-service
+    - grpc-server-service.grpc-istio.svc.cluster.local
   http:
     - match:
       - headers:
@@ -30,7 +30,7 @@ spec:
             exact: "server-1"
       route:
         - destination:
-            host: grpc-server-service
+            host: grpc-server-service.grpc-istio.svc.cluster.local
             subset: server-1
     - match:
       - headers:
@@ -38,5 +38,5 @@ spec:
             exact: "server-2"
       route:
         - destination:
-            host: grpc-server-service
+            host: grpc-server-service.grpc-istio.svc.cluster.local
             subset: server-2

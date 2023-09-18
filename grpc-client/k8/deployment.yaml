@@ -27,6 +27,6 @@ spec:
             - name: APP_PORT
               value: "8080"
             - name: GRPC_SERVER_ADDRESS
-              value: "grpc-server-service:9090"
+              value: "xds:///grpc-server-service.grpc-istio.svc.cluster.local:9090"
           ports:
             - containerPort: 8080
