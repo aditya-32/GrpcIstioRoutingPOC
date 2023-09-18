@@ -3,12 +3,10 @@ package org.example;
 import com.example.grpcproto.GrpcIstioRoutingServerGrpc;
 import com.example.grpcproto.GrpcRequest;
 import io.grpc.*;
+import io.grpc.internal.GrpcUtil;
 import lombok.AccessLevel;
-import lombok.Generated;
 import lombok.RequiredArgsConstructor;
-
 import java.util.concurrent.TimeUnit;
-
 import static io.grpc.Metadata.ASCII_STRING_MARSHALLER;
 
 public class GrpcClientHandler {
@@ -29,6 +27,7 @@ public class GrpcClientHandler {
                 .directExecutor()
                 .disableRetry()
                 .defaultLoadBalancingPolicy(config.grpcLoadBalancingPolicy())
+                .proxyDetector(GrpcUtil.NOOP_PROXY_DETECTOR)
                 .build();
         GrpcClientHandler.GrpcChannelShutdownHook.register("ServerSubsetChannel", managedChannel);
         return new GrpcClientHandler(managedChannel);

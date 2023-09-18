@@ -25,10 +25,10 @@ spec:
     - grpcclient-gateway
   http:
     - match:
-        - uri:
-            exact: /grpc_client/serverSubset
+      - uri:
+          exact: /grpc_client/serverSubset
       route:
-        - destination:
-            host: grpc-client-service
-            port:
-              number: 8080
+      - destination:
+          host: grpc-client-service
+          port:
+            number: 8080

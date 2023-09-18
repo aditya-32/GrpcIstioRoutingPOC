@@ -7,14 +7,13 @@ metadata:
 spec:
   host: grpc-server-service.grpc-istio.svc.cluster.local
   subsets:
-    - name: server-1
-      labels:
-        server: server-1
-    - name: server-2
-      labels:
-        server: server-2
+  - name: server-1
+    labels:
+      server: server-1
+  - name: server-2
+    labels:
+      server: server-2
 ---
-
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
@@ -24,19 +23,19 @@ spec:
   hosts:
     - grpc-server-service.grpc-istio.svc.cluster.local
   http:
-    - match:
-      - headers:
-          SERVER:
-            exact: "server-1"
-      route:
-        - destination:
-            host: grpc-server-service.grpc-istio.svc.cluster.local
-            subset: server-1
-    - match:
-      - headers:
-          SERVER:
-            exact: "server-2"
-      route:
-        - destination:
-            host: grpc-server-service.grpc-istio.svc.cluster.local
-            subset: server-2
+  - match:
+    - headers:
+        SERVER:
+          exact: "server-1"
+    route:
+    - destination:
+        host: grpc-server-service.grpc-istio.svc.cluster.local
+        subset: server-1
+  - match:
+    - headers:
+        SERVER:
+          exact: "server-2"
+    route:
+    - destination:
+        host: grpc-server-service.grpc-istio.svc.cluster.local
+        subset: server-2
