@@ -2,7 +2,7 @@ services:
   grpc-client:
     image: grpc-client:latest
     environment:
-      SERVER: "server-1"
+      server: "server-1"
       GRPC_SERVER_ADDRESS: "host.docker.internal:9090"
     ports:
       - "8080:8080"

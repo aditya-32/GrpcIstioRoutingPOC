@@ -78,7 +78,7 @@ public class GrpcClientHandler {
             return new ForwardingClientCall.SimpleForwardingClientCall<>(channel.newCall(methodDescriptor, callOptions)){
                 @Override
                 public void start(Listener<RespT> responseListener, Metadata headers) {
-                    headers.put(Metadata.Key.of("SERVER", ASCII_STRING_MARSHALLER), serverName);
+                    headers.put(Metadata.Key.of("server", ASCII_STRING_MARSHALLER), serverName);
                     super.start(responseListener, headers);
                 }
             };

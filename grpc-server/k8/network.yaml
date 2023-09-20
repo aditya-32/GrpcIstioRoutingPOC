@@ -25,7 +25,7 @@ spec:
   http:
   - match:
     - headers:
-        SERVER:
+        server:
           exact: "server-1"
     route:
     - destination:
@@ -33,7 +33,7 @@ spec:
         subset: server-1
   - match:
     - headers:
-        SERVER:
+        server:
           exact: "server-2"
     route:
     - destination:
