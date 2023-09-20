@@ -3,6 +3,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: Gateway
 metadata:
   name: grpcclient-gateway
+  namespace: grpc-istio
 spec:
   selector:
     istio: ingressgateway
@@ -18,6 +19,7 @@ apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: grpc-client-virtual-service
+  namespace: grpc-istio
 spec:
   hosts:
     - "*"
