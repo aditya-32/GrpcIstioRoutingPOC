@@ -1,7 +1,7 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: grpc-client
+  name: grpc-client-istio
   namespace: grpc-istio
   labels:
     name: grpc-client
